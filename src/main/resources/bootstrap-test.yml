@@ -1,0 +1,33 @@
+server:
+  port: 9080
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+management:
+  address: 127.0.0.1
+  port: 9081
+
+spring:
+  application:
+    name: wx-gzh-pay
+  cloud:
+    config:
+     #uri: http://localhost:8888
+     discovery:
+       enabled: true
+       serviceId: config-server
+     name: wx-gzh-pay
+     profile: ${spring.profiles.active:dev}
+     label: master
+
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.86:8761/eureka/,http://192.168.1.87:8761/eureka/
+
